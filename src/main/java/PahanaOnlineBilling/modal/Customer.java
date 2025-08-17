@@ -1,13 +1,20 @@
 package PahanaOnlineBilling.modal;
 
 public class Customer {
-	
+	private int customerId;  
 	private String accountNo;
     private String fullName;
     private String address;
     private String phone;
 
     // Getters and Setters
+    
+    public int getCustomerId() {
+        return customerId;
+    }
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
     public String getAccountNo() {
         return accountNo;
     }

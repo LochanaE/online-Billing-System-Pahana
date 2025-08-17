@@ -83,7 +83,7 @@
         <i class="fas fa-chart-line card-icon mb-3"></i>
         <h5>Reports</h5>
         <p class="text-muted">Generate billing and usage reports.</p>
-        <a href="#" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
+        <a href="<%= request.getContextPath() %>/BillingServlet" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
       </div>
     </div>
 

@@ -141,4 +141,48 @@ public class ItemDAO {
 
         return success;
     }
+
+    // Get item by ID
+    public Item getItemById(int id) {
+        Item item = null;
+        String sql = "SELECT * FROM items WHERE item_id=?";
+        try (Connection conn = billingSysytemDb.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+            ps.setInt(1, id);
+            try(ResultSet rs = ps.executeQuery()) {
+               if(rs.next()) {
+                   item = new Item();
+                   item.setItemId(rs.getInt("item_id"));
+                   item.setItemName(rs.getString("item_name"));
+                   item.setCategory(rs.getString("category"));
+                   item.setPrice(rs.getDouble("price"));
+                   item.setQuantity(rs.getInt("quantity"));
+                   item.setSupplier(rs.getString("supplier"));
+               }
+            }
+        } catch (SQLException e) { e.printStackTrace(); }
+        return item;
+    }
+
+    // Reduce stock after billing
+    public boolean reduceStock(int itemId, int qtyUsed) {
+        boolean success = false;
+        String sql = "UPDATE items SET quantity = quantity - ? WHERE item_id=? AND quantity >= ?";
+
+        try (Connection conn = billingSysytemDb.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, qtyUsed);
+            ps.setInt(2, itemId);
+            ps.setInt(3, qtyUsed); // ensure stock doesn't go negative
+
+            int rows = ps.executeUpdate();
+            success = rows > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
+    }
 }

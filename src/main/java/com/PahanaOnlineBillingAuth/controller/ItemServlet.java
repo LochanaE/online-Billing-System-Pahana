@@ -78,7 +78,7 @@ public class ItemServlet extends HttpServlet {
         }
 
         request.setAttribute("itemList", list);
-        request.getRequestDispatcher("Views/Item.jsp").forward(request, response);
+        request.getRequestDispatcher("/Views/Item.jsp").forward(request, response);
     }
 }
 
