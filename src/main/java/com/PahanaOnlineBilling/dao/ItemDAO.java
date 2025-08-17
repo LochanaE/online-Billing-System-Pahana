@@ -31,13 +31,14 @@ public class ItemDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return success;
     }
 
     // Get all items
     public List<Item> getAllItems() {
         List<Item> items = new ArrayList<>();
-        String sql = "SELECT * FROM items";
+        String sql = "SELECT * FROM items ORDER BY item_id";
 
         try (Connection conn = billingSysytemDb.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -51,12 +52,49 @@ public class ItemDAO {
                 item.setPrice(rs.getDouble("price"));
                 item.setQuantity(rs.getInt("quantity"));
                 item.setSupplier(rs.getString("supplier"));
+                item.setCreatedAt(rs.getTimestamp("created_at"));
                 items.add(item);
             }
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
+        return items;
+    }
+
+    // Search items
+    public List<Item> searchItems(String keyword) {
+        List<Item> items = new ArrayList<>();
+        String sql = "SELECT * FROM items WHERE item_name LIKE ? OR category LIKE ? OR supplier LIKE ? OR item_id LIKE ?";
+
+        try (Connection conn = billingSysytemDb.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            String k = "%" + keyword + "%";
+            ps.setString(1, k);
+            ps.setString(2, k);
+            ps.setString(3, k);
+            ps.setString(4, k);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    Item item = new Item();
+                    item.setItemId(rs.getInt("item_id"));
+                    item.setItemName(rs.getString("item_name"));
+                    item.setCategory(rs.getString("category"));
+                    item.setPrice(rs.getDouble("price"));
+                    item.setQuantity(rs.getInt("quantity"));
+                    item.setSupplier(rs.getString("supplier"));
+                    item.setCreatedAt(rs.getTimestamp("created_at"));
+                    items.add(item);
+                }
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return items;
     }
 
@@ -81,6 +119,7 @@ public class ItemDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return success;
     }
 
@@ -99,6 +138,7 @@ public class ItemDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return success;
     }
 }

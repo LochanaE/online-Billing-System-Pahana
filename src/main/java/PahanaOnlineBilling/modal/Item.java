@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 public class Item {
 
-    private int itemId;
+    private int itemId; // DB auto-increment
     private String itemName;
     private String category;
     private double price;
@@ -12,9 +12,18 @@ public class Item {
     private String supplier;
     private Timestamp createdAt;
 
-    // --- Constructors ---
     public Item() {}
 
+    // Constructor without itemId for Add
+    public Item(String itemName, String category, double price, int quantity, String supplier) {
+        this.itemName = itemName;
+        this.category = category;
+        this.price = price;
+        this.quantity = quantity;
+        this.supplier = supplier;
+    }
+
+    // Full constructor for read/update
     public Item(int itemId, String itemName, String category, double price, int quantity, String supplier, Timestamp createdAt) {
         this.itemId = itemId;
         this.itemName = itemName;
@@ -25,7 +34,7 @@ public class Item {
         this.createdAt = createdAt;
     }
 
-    // --- Getters & Setters ---
+    // Getters & Setters
     public int getItemId() { return itemId; }
     public void setItemId(int itemId) { this.itemId = itemId; }
 

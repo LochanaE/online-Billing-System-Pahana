@@ -221,10 +221,10 @@
     });
   });
   // Auto hide flash toast
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  toastElList.forEach(function(toastEl) {
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000, autohide: true });
-    toast.show();
+   document.querySelectorAll('.toast').forEach(toastEl => {
+        const t = new bootstrap.Toast(toastEl, { delay: 3000 });
+        t.show();
+      });
   });
 </script>
 

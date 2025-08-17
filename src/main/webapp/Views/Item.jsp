@@ -23,11 +23,11 @@
   .card:hover { transform: translateY(-3px); box-shadow: 0 12px 28px rgba(0,0,0,0.15); }
   h3 { font-weight: 600; }
   .text-warning { color: #FACC15 !important; }
-  .form-floating>.form-control:focus~label,
-  .form-floating>.form-control:not(:placeholder-shown)~label { opacity: 0.9; font-size: 0.85rem; color: #2563EB; }
   .form-control { background-color: #F9FAFB; border: 1px solid #D1D5DB; color: #111827; transition: 0.3s; }
   .form-control:focus { border-color: #2563EB; box-shadow: 0 0 0 0.2rem rgba(37, 99, 235, 0.25); }
-  .form-control::placeholder { color: transparent; }
+  .form-floating>label { color: #6B7280; transition: 0.3s; }
+  .form-floating>.form-control:focus~label,
+  .form-floating>.form-control:not(:placeholder-shown)~label { color: #2563EB; font-weight: 500; }
   .btn-custom { background-color: #2563EB; color: #ffffff; font-weight: 600; transition: 0.3s; }
   .btn-custom:hover { background-color: #1E40AF; }
   .btn-primary { background-color: #10B981; border-color: #10B981; color: #ffffff; font-weight: 600; }
@@ -38,7 +38,31 @@
   .toast-success { background-color: #10B981; color: #ffffff; }
   .toast-danger { background-color: #DC2626; color: #ffffff; }
   .modal-content { border-radius: 12px; }
-  @media(max-width:768px){ .text-end { text-align:center !important; } }
+  @media(max-width:768px){ .text-end { text-align:center !important; } 
+  .form-control-lg {
+  font-size: 1.1rem;
+  padding: 1.3rem 1rem; /* වැඩි height */
+  border-radius: 12px;
+  transition: 0.3s;
+}
+
+.form-control-lg:focus {
+  border-color: #2563EB;
+  box-shadow: 0 0 10px rgba(37, 99, 235, 0.3);
+}
+
+.shadow-sm {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.btn-lg {
+  font-size: 1.1rem;
+  padding: 0.9rem 2rem;
+  border-radius: 10px;
+  font-weight: 600;
+}
+  
+  }
 </style>
 </head>
 <body>
@@ -49,9 +73,6 @@
     <a class="navbar-brand text-warning" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
       <i class="fas fa-book-open"></i> Pahana Edu
     </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/Views/DashBoard.jsp"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
@@ -63,52 +84,72 @@
 
 <div class="container py-4">
 
-  <!-- Add Item Card -->
-  <div class="card p-4">
-    <h3 class="text-center mb-4 text-warning"><i class="fas fa-box"></i> Add Item</h3>
-    <form method="post" action="<%= request.getContextPath() %>/ItemServlet">
-      <input type="hidden" name="action" value="add" />
-      <div class="row g-3">
-        <div class="col-md-3 form-floating">
-          <input name="itemId" class="form-control" placeholder="Item ID" required>
-          <label>Item ID</label>
-        </div>
-        <div class="col-md-3 form-floating">
-          <input name="itemName" class="form-control" placeholder="Item Name" required>
+  
+<!-- Add Item Card -->
+<div class="card p-5 mb-4 shadow-sm">
+  <h3 class="text-center mb-4 text-warning"><i class="fas fa-box"></i> Add Item</h3>
+  <form method="post" action="<%= request.getContextPath() %>/ItemServlet">
+    <input type="hidden" name="action" value="add" />
+    
+    <!-- First Row: Item Name, Category, Supplier -->
+    <div class="row g-4 mb-3">
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input name="itemName" class="form-control form-control-lg shadow-sm" placeholder="Item Name" required>
           <label>Item Name</label>
         </div>
-        <div class="col-md-3 form-floating">
-          <input name="category" class="form-control" placeholder="Category" required>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input name="category" class="form-control form-control-lg shadow-sm" placeholder="Category" required>
           <label>Category</label>
         </div>
-        <div class="col-md-3 form-floating">
-          <input type="number" step="0.01" name="price" class="form-control" placeholder="Price" required>
-          <label>Price</label>
-        </div>
-        <div class="col-md-3 form-floating">
-          <input type="number" name="quantity" class="form-control" placeholder="Quantity" required>
-          <label>Quantity</label>
-        </div>
-        <div class="col-md-3 form-floating">
-          <input name="supplier" class="form-control" placeholder="Supplier" required>
+      </div>
+      <div class="col-md-4">
+        <div class="form-floating">
+          <input name="supplier" class="form-control form-control-lg shadow-sm" placeholder="Supplier" required>
           <label>Supplier</label>
         </div>
       </div>
-      <div class="mt-3 text-end">
-        <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
+    </div>
+    
+    <!-- Second Row: Price, Quantity -->
+    <div class="row g-4 mb-3">
+      <div class="col-md-2">
+        <div class="form-floating">
+          <input name="price" type="number" step="0.01" class="form-control form-control-lg shadow-sm" placeholder="Price" required>
+          <label>Price</label>
+        </div>
       </div>
-    </form>
-  </div>
+      <div class="col-md-2">
+        <div class="form-floating">
+          <input name="quantity" type="number" class="form-control form-control-lg shadow-sm" placeholder="Quantity" required>
+          <label>Quantity</label>
+        </div>
+      </div>
+    </div>
 
-  <!-- Item List Card -->
+    <div class="mt-4 text-end">
+      <button class="btn btn-warning btn-lg px-5 shadow-sm"><i class="fas fa-save"></i> Save</button>
+    </div>
+  </form>
+</div>
+
+
+  <!-- Search & Item List Card -->
   <div class="card p-4">
-    <h3 class="mb-3 text-warning"><i class="fas fa-boxes"></i> Item List</h3>
+    <h3 class="mb-3 text-warning"><i class="fas fa-list"></i> Item List</h3>
+    <div class="input-group mb-3">
+      <input type="text" id="searchInput" name="search" class="form-control" placeholder="Search by Name, Category, Supplier">
+      <button class="btn btn-custom" id="searchBtn"><i class="fas fa-search"></i> Search</button>
+    </div>
+
     <div class="table-responsive">
-      <table class="table table-hover align-middle">
+      <table class="table table-hover align-middle" id="itemTable">
         <thead>
           <tr>
             <th>Item ID</th>
-            <th>Name</th>
+            <th>Item Name</th>
             <th>Category</th>
             <th>Price</th>
             <th>Quantity</th>
@@ -117,26 +158,26 @@
           </tr>
         </thead>
         <tbody>
-          <c:forEach var="i" items="${itemList}">
+          <c:forEach var="item" items="${itemList}">
             <tr>
-              <td>${i.itemId}</td>
-              <td>${i.itemName}</td>
-              <td>${i.category}</td>
-              <td>${i.price}</td>
-              <td>${i.quantity}</td>
-              <td>${i.supplier}</td>
+              <td>${item.itemId}</td>
+              <td>${item.itemName}</td>
+              <td>${item.category}</td>
+              <td>${item.price}</td>
+              <td>${item.quantity}</td>
+              <td>${item.supplier}</td>
               <td>
                 <button type="button" class="btn btn-sm btn-custom editBtn"
-                        data-id="${i.itemId}"
-                        data-name="${i.itemName}"
-                        data-category="${i.category}"
-                        data-price="${i.price}"
-                        data-quantity="${i.quantity}"
-                        data-supplier="${i.supplier}">
+                        data-itemid="${item.itemId}"
+                        data-name="${item.itemName}"
+                        data-category="${item.category}"
+                        data-price="${item.price}"
+                        data-quantity="${item.quantity}"
+                        data-supplier="${item.supplier}">
                   <i class="fas fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-danger deleteBtn ms-2"
-                        data-id="${i.itemId}">
+                        data-itemid="${item.itemId}">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -152,7 +193,7 @@
 <!-- Hidden Delete Form -->
 <form id="deleteForm" method="post" action="<%= request.getContextPath() %>/ItemServlet" style="display:none;">
   <input type="hidden" name="action" value="delete" />
-  <input type="hidden" name="itemId" id="deleteItem" />
+  <input type="hidden" name="itemId" id="deleteItemId" />
 </form>
 
 <!-- Edit Modal -->
@@ -166,10 +207,7 @@
         </div>
         <div class="modal-body">
           <input type="hidden" name="action" value="update" />
-          <div class="form-floating mb-2">
-            <input type="text" name="itemId" id="editId" class="form-control" placeholder="Item ID" readonly>
-            <label>Item ID</label>
-          </div>
+          
           <div class="form-floating mb-2">
             <input type="text" name="itemName" id="editName" class="form-control" placeholder="Item Name" required>
             <label>Item Name</label>
@@ -225,7 +263,7 @@
   const editModal = new bootstrap.Modal(document.getElementById("editModal"));
   editBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      document.getElementById("editId").value = btn.dataset.id;
+      document.getElementById("editItemId").value = btn.dataset.itemid;
       document.getElementById("editName").value = btn.dataset.name;
       document.getElementById("editCategory").value = btn.dataset.category;
       document.getElementById("editPrice").value = btn.dataset.price;
@@ -239,16 +277,40 @@
   deleteBtns.forEach(btn => {
     btn.addEventListener("click", () => {
       if(confirm("Are you sure you want to delete this item?")) {
-        document.getElementById("deleteItem").value = btn.dataset.id;
+        document.getElementById("deleteItemId").value = btn.dataset.itemid;
         document.getElementById("deleteForm").submit();
       }
     });
   });
-  // Auto hide flash toast
-  const toastElList = [].slice.call(document.querySelectorAll('.toast'));
-  toastElList.forEach(function(toastEl) {
-    const toast = new bootstrap.Toast(toastEl, { delay: 3000, autohide: true });
-    toast.show();
+
+  // Search / Cancel button functionality
+  const searchInput = document.getElementById("searchInput");
+  const searchBtn = document.getElementById("searchBtn");
+  let searchActive = false;
+
+  searchBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    if(!searchActive){
+      const filter = searchInput.value.toLowerCase();
+      const rows = document.querySelectorAll("#itemTable tbody tr");
+      rows.forEach(row => {
+        const cells = row.querySelectorAll("td");
+        const match = Array.from(cells).some(td => td.textContent.toLowerCase().includes(filter));
+        row.style.display = match ? "" : "none";
+      });
+      searchBtn.innerHTML = '<i class="fas fa-times"></i> Cancel';
+      searchActive = true;
+    } else {
+      const rows = document.querySelectorAll("#itemTable tbody tr");
+      rows.forEach(row => row.style.display = "");
+      searchInput.value = "";
+      searchBtn.innerHTML = '<i class="fas fa-search"></i> Search';
+      searchActive = false;
+    }
+    document.querySelectorAll('.toast').forEach(toastEl => {
+        const t = new bootstrap.Toast(toastEl, { delay: 3000 });
+        t.show();
+      });
   });
 </script>
 
