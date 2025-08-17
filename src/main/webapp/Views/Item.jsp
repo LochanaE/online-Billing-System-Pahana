@@ -14,7 +14,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Add / Edit Customer - Pahana Edu</title>
+<title>Manage Items - Pahana Edu</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
@@ -63,27 +63,35 @@
 
 <div class="container py-4">
 
-  <!-- Add Customer Card -->
+  <!-- Add Item Card -->
   <div class="card p-4">
-    <h3 class="text-center mb-4 text-warning"><i class="fas fa-user-plus"></i> Add Customer</h3>
-    <form method="post" action="<%= request.getContextPath() %>/CustomerServlet">
+    <h3 class="text-center mb-4 text-warning"><i class="fas fa-box"></i> Add Item</h3>
+    <form method="post" action="<%= request.getContextPath() %>/ItemServlet">
       <input type="hidden" name="action" value="add" />
       <div class="row g-3">
         <div class="col-md-3 form-floating">
-          <input name="accountNo" class="form-control" placeholder="Account No" required>
-          <label>Account No</label>
+          <input name="itemId" class="form-control" placeholder="Item ID" required>
+          <label>Item ID</label>
         </div>
         <div class="col-md-3 form-floating">
-          <input name="fullName" class="form-control" placeholder="Full Name" required>
-          <label>Full Name</label>
+          <input name="itemName" class="form-control" placeholder="Item Name" required>
+          <label>Item Name</label>
         </div>
         <div class="col-md-3 form-floating">
-          <input name="address" class="form-control" placeholder="Address" required>
-          <label>Address</label>
+          <input name="category" class="form-control" placeholder="Category" required>
+          <label>Category</label>
         </div>
         <div class="col-md-3 form-floating">
-          <input name="phone" class="form-control" placeholder="Phone" required>
-          <label>Phone</label>
+          <input type="number" step="0.01" name="price" class="form-control" placeholder="Price" required>
+          <label>Price</label>
+        </div>
+        <div class="col-md-3 form-floating">
+          <input type="number" name="quantity" class="form-control" placeholder="Quantity" required>
+          <label>Quantity</label>
+        </div>
+        <div class="col-md-3 form-floating">
+          <input name="supplier" class="form-control" placeholder="Supplier" required>
+          <label>Supplier</label>
         </div>
       </div>
       <div class="mt-3 text-end">
@@ -92,37 +100,43 @@
     </form>
   </div>
 
-  <!-- Customer List Card -->
+  <!-- Item List Card -->
   <div class="card p-4">
-    <h3 class="mb-3 text-warning"><i class="fas fa-users"></i> Customer List</h3>
+    <h3 class="mb-3 text-warning"><i class="fas fa-boxes"></i> Item List</h3>
     <div class="table-responsive">
       <table class="table table-hover align-middle">
         <thead>
           <tr>
-            <th>Account No</th>
-            <th>Full Name</th>
-            <th>Address</th>
-            <th>Phone</th>
+            <th>Item ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Supplier</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <c:forEach var="c" items="${customerList}">
+          <c:forEach var="i" items="${itemList}">
             <tr>
-              <td>${c.accountNo}</td>
-              <td>${c.fullName}</td>
-              <td>${c.address}</td>
-              <td>${c.phone}</td>
+              <td>${i.itemId}</td>
+              <td>${i.itemName}</td>
+              <td>${i.category}</td>
+              <td>${i.price}</td>
+              <td>${i.quantity}</td>
+              <td>${i.supplier}</td>
               <td>
                 <button type="button" class="btn btn-sm btn-custom editBtn"
-                        data-account="${c.accountNo}"
-                        data-name="${c.fullName}"
-                        data-address="${c.address}"
-                        data-phone="${c.phone}">
+                        data-id="${i.itemId}"
+                        data-name="${i.itemName}"
+                        data-category="${i.category}"
+                        data-price="${i.price}"
+                        data-quantity="${i.quantity}"
+                        data-supplier="${i.supplier}">
                   <i class="fas fa-edit"></i>
                 </button>
                 <button type="button" class="btn btn-sm btn-danger deleteBtn ms-2"
-                        data-account="${c.accountNo}">
+                        data-id="${i.itemId}">
                   <i class="fas fa-trash"></i>
                 </button>
               </td>
@@ -136,37 +150,45 @@
 </div>
 
 <!-- Hidden Delete Form -->
-<form id="deleteForm" method="post" action="<%= request.getContextPath() %>/CustomerServlet" style="display:none;">
+<form id="deleteForm" method="post" action="<%= request.getContextPath() %>/ItemServlet" style="display:none;">
   <input type="hidden" name="action" value="delete" />
-  <input type="hidden" name="accountNo" id="deleteAccount" />
+  <input type="hidden" name="itemId" id="deleteItem" />
 </form>
 
 <!-- Edit Modal -->
 <div class="modal fade" id="editModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
-      <form method="post" action="<%= request.getContextPath() %>/CustomerServlet">
+      <form method="post" action="<%= request.getContextPath() %>/ItemServlet">
         <div class="modal-header">
-          <h5 class="modal-title text-warning"><i class="fas fa-edit"></i> Edit Customer</h5>
+          <h5 class="modal-title text-warning"><i class="fas fa-edit"></i> Edit Item</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body">
           <input type="hidden" name="action" value="update" />
           <div class="form-floating mb-2">
-            <input type="text" name="accountNo" id="editAccount" class="form-control" placeholder="Account No" readonly>
-            <label>Account No</label>
+            <input type="text" name="itemId" id="editId" class="form-control" placeholder="Item ID" readonly>
+            <label>Item ID</label>
           </div>
           <div class="form-floating mb-2">
-            <input type="text" name="fullName" id="editName" class="form-control" placeholder="Full Name" required>
-            <label>Full Name</label>
+            <input type="text" name="itemName" id="editName" class="form-control" placeholder="Item Name" required>
+            <label>Item Name</label>
           </div>
           <div class="form-floating mb-2">
-            <input type="text" name="address" id="editAddress" class="form-control" placeholder="Address" required>
-            <label>Address</label>
+            <input type="text" name="category" id="editCategory" class="form-control" placeholder="Category" required>
+            <label>Category</label>
           </div>
           <div class="form-floating mb-2">
-            <input type="text" name="phone" id="editPhone" class="form-control" placeholder="Phone" required>
-            <label>Phone</label>
+            <input type="number" step="0.01" name="price" id="editPrice" class="form-control" placeholder="Price" required>
+            <label>Price</label>
+          </div>
+          <div class="form-floating mb-2">
+            <input type="number" name="quantity" id="editQuantity" class="form-control" placeholder="Quantity" required>
+            <label>Quantity</label>
+          </div>
+          <div class="form-floating mb-2">
+            <input type="text" name="supplier" id="editSupplier" class="form-control" placeholder="Supplier" required>
+            <label>Supplier</label>
           </div>
         </div>
         <div class="modal-footer">
@@ -203,10 +225,12 @@
   const editModal = new bootstrap.Modal(document.getElementById("editModal"));
   editBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      document.getElementById("editAccount").value = btn.dataset.account;
+      document.getElementById("editId").value = btn.dataset.id;
       document.getElementById("editName").value = btn.dataset.name;
-      document.getElementById("editAddress").value = btn.dataset.address;
-      document.getElementById("editPhone").value = btn.dataset.phone;
+      document.getElementById("editCategory").value = btn.dataset.category;
+      document.getElementById("editPrice").value = btn.dataset.price;
+      document.getElementById("editQuantity").value = btn.dataset.quantity;
+      document.getElementById("editSupplier").value = btn.dataset.supplier;
       editModal.show();
     });
   });
@@ -214,8 +238,8 @@
   const deleteBtns = document.querySelectorAll(".deleteBtn");
   deleteBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      if(confirm("Are you sure you want to delete this customer?")) {
-        document.getElementById("deleteAccount").value = btn.dataset.account;
+      if(confirm("Are you sure you want to delete this item?")) {
+        document.getElementById("deleteItem").value = btn.dataset.id;
         document.getElementById("deleteForm").submit();
       }
     });

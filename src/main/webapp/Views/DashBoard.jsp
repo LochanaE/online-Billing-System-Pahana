@@ -69,8 +69,8 @@
   <div class="card p-4 text-center">
     <i class="fas fa-book card-icon mb-3"></i>
     <h5>Manage Books</h5>
-    <p class="text-muted">Add, view, edit, or delete books in your store.</p>
-    <a href="<%= request.getContextPath() %>/BookServlet" class="btn btn-custom">
+    <p class="text-muted">Add, view, edit, or delete Items in your store.</p>
+    <a href="<%= request.getContextPath() %>/ItemServlet" class="btn btn-custom">
       <i class="fas fa-arrow-right"></i> Go
     </a>
   </div>

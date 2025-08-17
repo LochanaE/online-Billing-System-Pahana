@@ -23,6 +23,6 @@ public class LogoutServlet extends HttpServlet {
         }
 
         // Redirect to login page
-        response.sendRedirect("Views/login.jsp?message=Logged+out+successfully");
+        response.sendRedirect("/Views/login.jsp?message=Logged+out+successfully");
     }
 }
