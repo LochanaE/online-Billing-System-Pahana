@@ -69,18 +69,29 @@
 
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-  <div class="container-fluid">
-    <a class="navbar-brand text-warning" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
-      <i class="fas fa-book-open"></i> Pahana Edu
-    </a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/Views/DashBoard.jsp"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/LogoutServlet"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-      </ul>
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    
+    <!-- Brand + Dashboard group -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand text-warning" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
+        <i class="fas fa-book-open"></i> Pahana Edu
+      </a>
+      <a class="nav-link text-primary ms-3 fw-semibold" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
     </div>
+
+    <!-- Right side items -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= request.getContextPath() %>/LogoutServlet">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
+
 
 <div class="container py-4">
 
@@ -129,9 +140,10 @@
       </div>
     </div>
 
-    <div class="mt-4 text-end">
-      <button class="btn btn-warning btn-lg px-5 shadow-sm"><i class="fas fa-save"></i> Save</button>
+    <div class="mt-3 text-end">
+      <button class="btn btn-primary"><i class="fas fa-save"></i> Save</button>
     </div>
+    
   </form>
 </div>
 
@@ -207,6 +219,7 @@
         </div>
         <div class="modal-body">
           <input type="hidden" name="action" value="update" />
+          <input type="hidden" name="itemId" id="editId" />
           
           <div class="form-floating mb-2">
             <input type="text" name="itemName" id="editName" class="form-control" placeholder="Item Name" required>
@@ -263,7 +276,8 @@
   const editModal = new bootstrap.Modal(document.getElementById("editModal"));
   editBtns.forEach(btn => {
     btn.addEventListener("click", () => {
-      document.getElementById("editItemId").value = btn.dataset.itemid;
+      document.getElementById("editId").value = btn.dataset.itemid; 
+     
       document.getElementById("editName").value = btn.dataset.name;
       document.getElementById("editCategory").value = btn.dataset.category;
       document.getElementById("editPrice").value = btn.dataset.price;

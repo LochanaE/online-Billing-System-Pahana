@@ -34,7 +34,9 @@ public class CustomerServlet extends HttpServlet {
         String accountNo = request.getParameter("accountNo");
         String fullName = request.getParameter("fullName");
         String address = request.getParameter("address");
+       
         String phone = request.getParameter("phone");
+       
 
         // DAO object
         CustomerDAO dao = new CustomerDAO();
@@ -44,7 +46,9 @@ public class CustomerServlet extends HttpServlet {
         customer.setAccountNo(accountNo);
         customer.setFullName(fullName);
         customer.setAddress(address);
+       
         customer.setPhone(phone);
+       
 
         // If no action param => treat as add
         if (action == null || action.equals("add")) {

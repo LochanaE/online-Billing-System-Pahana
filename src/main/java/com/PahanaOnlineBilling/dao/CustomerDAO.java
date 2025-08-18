@@ -15,7 +15,7 @@ public class CustomerDAO {
     // Add customer
     public boolean addCustomer(Customer customer) {
         boolean success = false;
-        String sql = "INSERT INTO customers (account_no, full_name, address, phone) VALUES (?, ?, ?, ?)";
+        String sql = "INSERT INTO customers (account_no, full_name, address, phone ) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = billingSysytemDb.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -23,7 +23,9 @@ public class CustomerDAO {
             ps.setString(1, customer.getAccountNo());
             ps.setString(2, customer.getFullName());
             ps.setString(3, customer.getAddress());
+//            ps.setString(5, customer.getEmail());
             ps.setString(4, customer.getPhone());
+           
 
             int rows = ps.executeUpdate();
             success = rows > 0;
@@ -50,7 +52,9 @@ public class CustomerDAO {
                 c.setAccountNo(rs.getString("account_no"));
                 c.setFullName(rs.getString("full_name"));
                 c.setAddress(rs.getString("address"));
+//                c.setEmail(rs.getString("email"));
                 c.setPhone(rs.getString("phone"));
+                
                 customers.add(c);
             }
         } catch (SQLException e) {
@@ -70,8 +74,9 @@ public class CustomerDAO {
             ps.setString(1, customer.getFullName());
             ps.setString(2, customer.getAddress());
             ps.setString(3, customer.getPhone());
+//            ps.setString(5, customer.getEmail());
             ps.setString(4, customer.getAccountNo());
-
+           
             int rows = ps.executeUpdate();
             success = rows > 0;
 
@@ -116,7 +121,9 @@ public class CustomerDAO {
                     customer.setAccountNo(rs.getString("account_no"));
                     customer.setFullName(rs.getString("full_name"));
                     customer.setAddress(rs.getString("address"));
+//                    customer.setPhone(rs.getString("email"));
                     customer.setPhone(rs.getString("phone"));
+                    
                 }
             }
 

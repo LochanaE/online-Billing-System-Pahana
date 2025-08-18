@@ -40,7 +40,7 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link active" href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+       
         <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/LogoutServlet"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
       </ul>
     </div>
@@ -97,15 +97,19 @@
       </div>
     </div>
 
-    <!-- Settings Card -->
+    <!-- Help Card -->
     <div class="col-md-4">
-      <div class="card p-4 text-center">
-        <i class="fas fa-cogs card-icon mb-3"></i>
-        <h5>Settings</h5>
-        <p class="text-muted">Configure system preferences and options.</p>
-        <a href="#" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
-      </div>
-    </div>
+  <div class="card p-4 text-center">
+    <i class="fas fa-cogs card-icon mb-3"></i>
+    <h5>Help Section</h5>
+    <p class="text-muted">Help & Support.</p>
+    <!-- Redirect to Help.jsp -->
+    <a href="Help.jsp" class="btn btn-custom">
+      <i class="fas fa-arrow-right"></i> Go
+    </a>
+  </div>
+</div>
+    
 
   </div>
 </div>

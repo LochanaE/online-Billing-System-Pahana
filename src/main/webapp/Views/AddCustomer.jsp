@@ -43,21 +43,29 @@
 </head>
 <body>
 
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-  <div class="container-fluid">
-    <a class="navbar-brand text-warning" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
-      <i class="fas fa-book-open"></i> Pahana Edu
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/Views/DashBoard.jsp"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/LogoutServlet"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-      </ul>
+  <div class="container-fluid d-flex justify-content-between align-items-center">
+    
+    <!-- Brand + Dashboard group -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand text-warning" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
+        <i class="fas fa-book-open"></i> Pahana Edu
+      </a>
+      <a class="nav-link text-primary ms-3 fw-semibold" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
     </div>
+
+    <!-- Right side items -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="<%= request.getContextPath() %>/LogoutServlet">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </li>
+    </ul>
   </div>
 </nav>
 
@@ -221,11 +229,7 @@
     });
   });
   // Auto hide flash toast
-   document.querySelectorAll('.toast').forEach(toastEl => {
-        const t = new bootstrap.Toast(toastEl, { delay: 3000 });
-        t.show();
-      });
-  });
+
 </script>
 
 </body>

@@ -6,6 +6,7 @@ public class Customer {
     private String fullName;
     private String address;
     private String phone;
+//    private String email;
 
     // Getters and Setters
     
@@ -39,5 +40,11 @@ public class Customer {
     public void setPhone(String phone) {
         this.phone = phone;
     }
+//    public String getEmail() {
+//        return email;
+//    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 	}
 
