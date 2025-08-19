@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.PahanaOnlineBilling.dao.login;
+import com.PahanaOnlineBilling.dao.UserDAO;
 
 import PahanaOnlineBilling.modal.User;
 
@@ -22,7 +22,7 @@ public class Loginservlet extends HttpServlet {
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");
 
-	        login dao = new login();
+	        UserDAO dao = new UserDAO();
 	        User user = dao.authenticate(username, password);
 
 	        if (user != null) {
