@@ -9,13 +9,15 @@ public class User {
     private String role;
 
     public User() {}
-    public User(int id, String username, String password, String role) {
-        this.id = id;
+    public User(String username, String password, String role) {
+     
         this.username = username;
         this.password = password;
         this.role = role;
     }
 
+    
+    
     // Getters & Setters
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }

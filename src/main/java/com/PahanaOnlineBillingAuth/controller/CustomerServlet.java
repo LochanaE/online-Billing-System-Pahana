@@ -36,39 +36,11 @@ public class CustomerServlet extends HttpServlet {
         // DAO object
         CustomerDAO dao = new CustomerDAO();
         
-//     // ====== Backend Validation ======//
-//        String errorMsg = null;
-//
-//        // 1️⃣ Required fields check
-//        if (accountNo == null || accountNo.trim().isEmpty() ||
-//            fullName == null || fullName.trim().isEmpty() ||
-//            address == null || address.trim().isEmpty() ||
-//            phone == null || phone.trim().isEmpty()) {
-//            errorMsg = "All fields are required!";
-//        }
-//
-//        // 2️⃣ Phone number format check (digits only, length 10)
-//        else if (!phone.matches("\\d{10}")) {
-//            errorMsg = "Phone number must be 10 digits!";
-//        }
-//
-////        // 3️⃣ Duplicate account check (only for add)
-////        else if ((action == null || action.equals("add")) && dao.getAllCustomers(accountNo) != null) {
-////            errorMsg = "Account number already exists!";
-////        }
-//
-//        if (errorMsg != null) {
-//            FlashMessage.setMessage(request, "danger", errorMsg);
-//            doGet(request, response); // return to list/page
-//            return;
-//        }
-
         // Insert / update object
         Customer customer = new Customer();
         customer.setAccountNo(accountNo);
         customer.setFullName(fullName);
         customer.setAddress(address);
-       
         customer.setPhone(phone);
        
 

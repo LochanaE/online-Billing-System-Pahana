@@ -93,7 +93,7 @@
         <i class="fas fa-users card-icon mb-3"></i>
         <h5>Users</h5>
         <p class="text-muted">Manage users.</p>
-        <a href="#" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
+        <a href="<%= request.getContextPath() %>/UserServlet" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
       </div>
     </div>
      <!-- sales and reports Card -->
