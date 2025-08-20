@@ -32,18 +32,45 @@
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
   <div class="container-fluid">
-    <a class="navbar-brand text-warning" href="DashBoard.jsp">
-      <i class="fas fa-book-open"></i> Pahana Edu
-    </a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-       
-        <li class="nav-item"><a class="nav-link" href="<%= request.getContextPath() %>/LogoutServlet"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
-      </ul>
+    
+    <!-- Left side -->
+    <div class="d-flex align-items-center">
+      <a class="navbar-brand text-warning" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
+        <i class="fas fa-book-open"></i> Pahana Edu
+      </a>
+      <a class="nav-link text-primary ms-3 fw-semibold" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
+        <i class="fas fa-tachometer-alt"></i> Dashboard
+      </a>
     </div>
+
+    <!-- Right side -->
+    <ul class="navbar-nav ms-auto d-flex align-items-center">
+      
+      <!-- Avatar + Username + Role -->
+      <li class="nav-item d-flex align-items-center me-3">
+        <%
+            String fillColor = "0d6efd"; // default blue for User
+            if ("Admin".equalsIgnoreCase(user.getRole())) {
+                fillColor = "ffc107"; // Admin → gold
+            }
+        %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" class="me-2">
+          <path fill="#<%= fillColor %>" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+        <span class="fw-semibold text-dark">
+          <%= user.getUsername() %> 
+          <small class="text-muted">(<%= user.getRole() %>)</small>
+        </span>
+      </li>
+
+      <!-- Logout -->
+      <li class="nav-item">
+        <a class="nav-link text-danger" href="<%= request.getContextPath() %>/LogoutServlet">
+          <i class="fas fa-sign-out-alt"></i> Logout
+        </a>
+      </li>
+      
+    </ul>
   </div>
 </nav>
 
@@ -102,7 +129,7 @@
         <i class="fas fa-chart-line card-icon mb-3"></i>
         <h5>Sales & Reports</h5>
         <p class="text-muted">View detailed sales and usage reports.</p>
-        <a href="#" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
+        <a href="<%= request.getContextPath() %>/Views/Sales.jsp" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
       </div>
     </div>
 

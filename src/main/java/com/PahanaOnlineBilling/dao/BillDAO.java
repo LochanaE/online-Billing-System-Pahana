@@ -3,10 +3,14 @@ package com.PahanaOnlineBilling.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import PahanaOnlineBilling.db.billingSysytemDb;
+import PahanaOnlineBilling.modal.Bill;
+
 
 public class BillDAO {
 
@@ -98,4 +102,27 @@ public class BillDAO {
 
         return billId;
     }
+    
+ // Get all bills with items for sales report
+    public List<Bill> getAllBills() {
+        List<Bill> bills = new ArrayList<>();
+        String sql = "SELECT bill_id, customer_id, bill_date, total_amount FROM bill ORDER BY bill_date DESC";
+        try (Connection conn = billingSysytemDb.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql);
+             ResultSet rs = ps.executeQuery()) {
+
+            while(rs.next()) {
+                Bill bill = new Bill();
+                bill.setBillId(rs.getInt("bill_id"));
+                bill.setCustomerId(rs.getInt("customer_id"));
+                bill.setBillDate(rs.getTimestamp("bill_date"));
+                bill.setTotalAmount(rs.getDouble("total_amount"));
+                bills.add(bill);
+            }
+
+        } catch (Exception e) { e.printStackTrace(); }
+        return bills;
+    }
+
+    
 }

@@ -1,12 +1,15 @@
 <%@ page session="true" %>
 <%@ page import="PahanaOnlineBilling.modal.User" %>
 <%
+    // Session check
     User user = (User) session.getAttribute("user");
     if(user == null) {
         response.sendRedirect("Views/login.jsp");
         return;
     }
 %>
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -39,9 +42,12 @@
 </head>
 <body>
 
+
 <!-- Navbar -->
 <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
-  <div class="container-fluid d-flex justify-content-between align-items-center">
+  <div class="container-fluid">
+    
+    <!-- Left side -->
     <div class="d-flex align-items-center">
       <a class="navbar-brand text-warning" href="<%= request.getContextPath() %>/Views/DashBoard.jsp">
         <i class="fas fa-book-open"></i> Pahana Edu
@@ -50,15 +56,38 @@
         <i class="fas fa-tachometer-alt"></i> Dashboard
       </a>
     </div>
-    <ul class="navbar-nav">
+
+    <!-- Right side -->
+    <ul class="navbar-nav ms-auto d-flex align-items-center">
+      
+      <!-- Avatar + Username + Role -->
+      <li class="nav-item d-flex align-items-center me-3">
+        <%
+            String fillColor = "0d6efd"; // default blue for User
+            if ("Admin".equalsIgnoreCase(user.getRole())) {
+                fillColor = "ffc107"; // Admin → gold
+            }
+        %>
+        <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" class="me-2">
+          <path fill="#<%= fillColor %>" d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+        </svg>
+        <span class="fw-semibold text-dark">
+          <%= user.getUsername() %> 
+          <small class="text-muted">(<%= user.getRole() %>)</small>
+        </span>
+      </li>
+
+      <!-- Logout -->
       <li class="nav-item">
-        <a class="nav-link" href="<%= request.getContextPath() %>/LogoutServlet">
+        <a class="nav-link text-danger" href="<%= request.getContextPath() %>/LogoutServlet">
           <i class="fas fa-sign-out-alt"></i> Logout
         </a>
       </li>
+      
     </ul>
   </div>
 </nav>
+
 
 <div class="container py-4">
 

@@ -70,8 +70,8 @@
                     <td><%= count++ %></td>
                     <td><%= it.getItemName() %></td>
                     <td><%= it.getQuantity() %></td>
-                    <td>$<%= it.getPrice() %></td>
-                    <td>$<%= amount %></td>
+                    <td>Rs<%= it.getPrice() %></td>
+                    <td>Rs<%= amount %></td>
                 </tr>
                 <% } %>
             </tbody>
