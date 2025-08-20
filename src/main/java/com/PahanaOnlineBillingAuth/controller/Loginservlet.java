@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.PahanaOnlineBilling.dao.UserDAO;
+import com.PahanaOnlineBilling.util.FlashMessage;
 
 import PahanaOnlineBilling.modal.User;
 
@@ -21,6 +22,16 @@ public class Loginservlet extends HttpServlet {
 
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");
+	        
+	     // ===== Server-side Validation =====
+	        if (username == null || username.trim().isEmpty() ||
+	            password == null || password.trim().isEmpty()) {
+
+	            FlashMessage.setMessage(request, "Username and password are required!", "danger");
+	            request.getRequestDispatcher("Views/login.jsp").forward(request, response);
+	            return;
+	        }
+
 
 	        UserDAO dao = new UserDAO();
 	        User user = dao.authenticate(username, password);
@@ -36,4 +47,3 @@ public class Loginservlet extends HttpServlet {
 	 
 	 
 }
-	

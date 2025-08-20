@@ -186,26 +186,52 @@
   </div>
 </div>
 
+
 <!-- Toast -->
 <div class="toast-container">
 <%
-   com.PahanaOnlineBilling.util.FlashMessage.Flash flash = 
-     com.PahanaOnlineBilling.util.FlashMessage.getMessage(request);
-   if (flash != null) {
-       String cls = ("danger".equalsIgnoreCase(flash.getType()) ? "toast-danger" : "toast-success");
+    // Flash object get
+    com.PahanaOnlineBilling.util.FlashMessage.Flash flash =
+        com.PahanaOnlineBilling.util.FlashMessage.getMessage(request);
+
+    if (flash != null) {
 %>
-  <div class="toast show <%= cls %>" role="alert" aria-live="assertive">
+<div class="toast show toast-success" role="alert" aria-live="assertive" aria-atomic="true">
     <div class="d-flex">
-      <div class="toast-body"><%= flash.getMessage() %></div>
-      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
+        <!--message text -->
+        <div class="toast-body"><%= flash.getMessage() %></div>
+        <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button>
     </div>
-  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+    var toastList = toastElList.map(function (toastEl) {
+        return new bootstrap.Toast(toastEl, { delay: 3000 }); // auto-hide 5 sec
+    });
+    toastList.forEach(toast => toast.show());
+});
+</script>
 <%
-   }
+    }
 %>
+
+   
+  
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var toastElList = [].slice.call(document.querySelectorAll('.toast'))
+        var toastList = toastElList.map(function (toastEl) {
+            return new bootstrap.Toast(toastEl, { delay: 5000 }) // auto-hide after 5 sec
+        });
+        toastList.forEach(toast => toast.show());
+    });
+</script> -->
+
 <script>
   const editBtns = document.querySelectorAll(".editBtn");
   const editModal = new bootstrap.Modal(document.getElementById("editModal"));

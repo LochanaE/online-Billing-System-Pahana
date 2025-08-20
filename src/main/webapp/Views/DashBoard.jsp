@@ -67,8 +67,8 @@
     <!-- Manage Books Card -->
 <div class="col-md-4">
   <div class="card p-4 text-center">
-    <i class="fas fa-book card-icon mb-3"></i>
-    <h5>Manage Books</h5>
+    <i class="fas fa-boxes card-icon mb-3"></i>
+    <h5>Inventory</h5>
     <p class="text-muted">Add, view, edit, or delete Items in your store.</p>
     <a href="<%= request.getContextPath() %>/ItemServlet" class="btn btn-custom">
       <i class="fas fa-arrow-right"></i> Go
@@ -80,19 +80,28 @@
     <!-- Reports Card -->
     <div class="col-md-4">
       <div class="card p-4 text-center">
-        <i class="fas fa-chart-line card-icon mb-3"></i>
-        <h5>Reports</h5>
+        <i class="fas fa-file-invoice card-icon mb-3"></i>
+        <h5>Billing</h5>
         <p class="text-muted">Generate billing and usage reports.</p>
         <a href="<%= request.getContextPath() %>/BillingServlet" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
       </div>
     </div>
 
-    <!-- Payments Card -->
+    <!-- Users Card -->
     <div class="col-md-4">
       <div class="card p-4 text-center">
-        <i class="fas fa-credit-card card-icon mb-3"></i>
-        <h5>Payments</h5>
-        <p class="text-muted">Manage customer payments securely.</p>
+        <i class="fas fa-users card-icon mb-3"></i>
+        <h5>Users</h5>
+        <p class="text-muted">Manage users.</p>
+        <a href="#" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
+      </div>
+    </div>
+     <!-- sales and reports Card -->
+     <div class="col-md-4">
+      <div class="card p-4 text-center">
+        <i class="fas fa-chart-line card-icon mb-3"></i>
+        <h5>Sales & Reports</h5>
+        <p class="text-muted">View detailed sales and usage reports.</p>
         <a href="#" class="btn btn-custom"><i class="fas fa-arrow-right"></i> Go</a>
       </div>
     </div>
@@ -100,7 +109,7 @@
     <!-- Help Card -->
     <div class="col-md-4">
   <div class="card p-4 text-center">
-    <i class="fas fa-cogs card-icon mb-3"></i>
+    <i class="fas fa-headset card-icon mb-3"></i>
     <h5>Help Section</h5>
     <p class="text-muted">Help & Support.</p>
     <!-- Redirect to Help.jsp -->

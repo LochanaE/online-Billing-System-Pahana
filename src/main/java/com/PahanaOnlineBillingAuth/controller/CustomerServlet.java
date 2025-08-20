@@ -22,11 +22,7 @@ public class CustomerServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        /*
-         * JSP එකෙන් hidden input එකක් "action" කියලා එවමු:
-         * action="add" => insert logic use වෙනවා
-         * action="update" => update logic trigger වෙනවා
-         */
+       
         
         String action = request.getParameter("action");
 
@@ -34,12 +30,38 @@ public class CustomerServlet extends HttpServlet {
         String accountNo = request.getParameter("accountNo");
         String fullName = request.getParameter("fullName");
         String address = request.getParameter("address");
-       
         String phone = request.getParameter("phone");
        
 
         // DAO object
         CustomerDAO dao = new CustomerDAO();
+        
+     // ====== Backend Validation ======
+        String errorMsg = null;
+
+        // 1️⃣ Required fields check
+        if (accountNo == null || accountNo.trim().isEmpty() ||
+            fullName == null || fullName.trim().isEmpty() ||
+            address == null || address.trim().isEmpty() ||
+            phone == null || phone.trim().isEmpty()) {
+            errorMsg = "All fields are required!";
+        }
+
+        // 2️⃣ Phone number format check (digits only, length 10)
+        else if (!phone.matches("\\d{10}")) {
+            errorMsg = "Phone number must be 10 digits!";
+        }
+
+//        // 3️⃣ Duplicate account check (only for add)
+//        else if ((action == null || action.equals("add")) && dao.getAllCustomers(accountNo) != null) {
+//            errorMsg = "Account number already exists!";
+//        }
+
+        if (errorMsg != null) {
+            FlashMessage.setMessage(request, "danger", errorMsg);
+            doGet(request, response); // return to list/page
+            return;
+        }
 
         // Insert / update object
         Customer customer = new Customer();
@@ -55,9 +77,9 @@ public class CustomerServlet extends HttpServlet {
 
             boolean inserted = dao.addCustomer(customer);
             if (inserted) {
-                FlashMessage.setMessage(request, "success", "Customer added successfully!");
+                FlashMessage.setMessage(request,"Customer added successfully!", "success");
             } else {
-                FlashMessage.setMessage(request, "danger", "Failed to add customer.");
+                FlashMessage.setMessage(request,"Failed to add customer.", "danger");
             }
             /*
              * redirect to doGet => page refresh with list
@@ -72,9 +94,9 @@ public class CustomerServlet extends HttpServlet {
 
             boolean updated = dao.updateCustomer(customer);
             if (updated) {
-                FlashMessage.setMessage(request, "success", "Customer updated successfully!");
+                FlashMessage.setMessage(request,  "Customer updated successfully!","success");
             } else {
-                FlashMessage.setMessage(request, "danger", "Failed to update customer.");
+                FlashMessage.setMessage(request,  "Failed to update customer.","danger");
             }
             doGet(request, response);
             return;
@@ -83,9 +105,9 @@ public class CustomerServlet extends HttpServlet {
             String ac = request.getParameter("accountNo");
             boolean deleted = dao.deleteCustomer(ac);
             if(deleted) {
-                FlashMessage.setMessage(request, "success", "Customer deleted successfully!");
+                FlashMessage.setMessage(request,  "Customer deleted successfully!","success");
             } else {
-                FlashMessage.setMessage(request, "danger", "Failed to delete customer.");
+                FlashMessage.setMessage(request,  "Failed to delete customer.","danger");
             }
             doGet(request, response);
             return;
@@ -106,7 +128,7 @@ public class CustomerServlet extends HttpServlet {
         request.setAttribute("customerList", list);
 
         // forward to AddCustomer.jsp
-        request.getRequestDispatcher("Views/AddCustomer.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Customer.jsp").forward(request, response);
     }
 }
 
