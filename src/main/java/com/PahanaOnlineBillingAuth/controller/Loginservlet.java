@@ -23,7 +23,7 @@ public class Loginservlet extends HttpServlet {
 	        String username = request.getParameter("username");
 	        String password = request.getParameter("password");
 	        
-	     // ===== Server-side Validation =====
+
 	        if (username == null || username.trim().isEmpty() ||
 	            password == null || password.trim().isEmpty()) {
 

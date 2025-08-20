@@ -60,7 +60,7 @@
       <button @click="sidebarOpen = !sidebarOpen" class="md:hidden text-gray-700 focus:outline-none">
         <i class="fas fa-bars"></i>
       </button>
-      <h1 class="text-xl font-semibold">Billing Dashboard</h1>
+      <h1 class="text-xl font-semibold">Manage Your Bill Here</h1>
     </header>
 
     <!-- Content -->
